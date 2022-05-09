@@ -4,14 +4,13 @@ const Service = ({ service }) => {
     const { title, img, description } = service
     return (
         <div>
-            <div className="card  bg-base-100 shadow-xl">
-               <img src="https://api.lorem.space/image/album?w=400&h=400" alt="Album"/>
-                <div className="card-body">
-                    <h2 className="card-title">{title}</h2>
-                    <p>Click the button to listen on Spotiwhy app.</p>
-                    <div className="card-actions justify-end">
-                        <button className="btn btn-primary">Listen</button>
-                    </div>
+            <div class="card mb-8 mx-auto w-96 bg-base-100 shadow-xl">
+                <figure class="px-10 pt-10">
+                    <img src={img} alt="Shoes" class="rounded-xl" />
+                </figure>
+                <div class="card-body items-center text-center">
+                    <h2 class="card-title">{title}</h2>
+                    <p>{description}</p>
                 </div>
             </div>
         </div>
