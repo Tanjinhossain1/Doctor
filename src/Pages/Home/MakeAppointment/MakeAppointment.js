@@ -12,7 +12,7 @@ const MakeAppointment = () => {
         }}>
             <div className="mt-20 mb-12   text-white">
                 <div className="flex justify-between w-3/4 mx-auto  items-center">
-                    <img className="mt-[-100px] w-2/4  hidden lg:block" alt='Appointment' src={doctor}  />
+                    <img className="mt-[-110px] w-2/4  hidden lg:block" alt='Appointment' src={doctor}  />
                     <div className='lg:w-2/4 py-8'>
                         <p className='text-secondary font-bold'>Appointment</p>
                         <h1 className="text-5xl font-bold">Make an appointment Today</h1>

@@ -7,7 +7,7 @@ const Contact = () => {
     return (
         <div style={{
             background: `url(${appointment})`
-        }} className='text-center mb-12'>
+        }} className='text-center '>
             <div className=' w-1/4 mx-auto py-12'>
                 <h5 className='text-secondary font-bold'>Contact Us</h5>
                 <h2 className='text-2xl text-white'>Stay connected with us</h2>
