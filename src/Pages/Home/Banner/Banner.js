@@ -1,9 +1,15 @@
 import React from 'react';
-import chair from '../../../assets/images/chair.png'
+import chair from '../../../assets/images/chair.png';
 import Buttons from '../../Shared/Buttons/Buttons';
+import bg from '../../../assets/images/bg.png';
+
 const Banner = () => {
     return (
-        <div>
+        <div style={{
+            background: `url(${bg})`,
+            backgroundSize: 'cover',
+            backgroundPosition:'center'
+        }}>
             <div  className="hero min-h-screen bg-no-repeat low--dark">
                 <div className="hero-content   flex-col lg:flex-row-reverse">
                     <img className='sm:w-4/4 md:w-4/4 lg:w-2/4' alt='chair' src={chair} />

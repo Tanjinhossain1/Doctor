@@ -8,7 +8,8 @@ import Buttons from '../../Shared/Buttons/Buttons';
 const MakeAppointment = () => {
     return (
         <div style={{
-            backgroundImage: `url(${appointmentImage})`
+            backgroundImage: `url(${appointmentImage})`,
+            backgroundSize: 'cover'
         }}>
             <div className="mt-20 mb-12   text-white">
                 <div className="flex justify-between w-3/4 mx-auto  items-center">

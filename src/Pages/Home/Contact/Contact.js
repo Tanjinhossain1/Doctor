@@ -6,9 +6,10 @@ import Buttons from '../../Shared/Buttons/Buttons';
 const Contact = () => {
     return (
         <div style={{
-            background: `url(${appointment})`
+            background: `url(${appointment})`,
+            backgroundSize: 'cover'
         }} className='text-center '>
-            <div className=' w-1/4 mx-auto py-12'>
+            <div className=' w-3/4 lg:w-1/4 mx-auto py-12'>
                 <h5 className='text-secondary font-bold'>Contact Us</h5>
                 <h2 className='text-2xl text-white'>Stay connected with us</h2>
                 <input className='mt-6 w-full rounded-md px-4 py-1' placeholder='Email Address' type="email" name="" id="" />

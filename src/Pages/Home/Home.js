@@ -1,5 +1,6 @@
 import React from 'react';
 import Exceptional from '../Exceptional/Exceptional';
+import Footer from '../Shared/Footer/Footer';
 import Banner from './Banner/Banner';
 import Contact from './Contact/Contact';
 import Info from './Info/Info';
@@ -18,6 +19,7 @@ const Home = () => {
             <MakeAppointment />
             <Testimonials />
             <Contact />
+            <Footer />
         </div>
     );
 };
