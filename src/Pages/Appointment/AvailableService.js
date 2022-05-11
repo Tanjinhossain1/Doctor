@@ -1,7 +1,7 @@
 import React from 'react';
-import Buttons from '../Shared/Buttons/Buttons';
 
-const AvailableService = ({ serVices }) => {
+
+const AvailableService = ({ serVices, setTreatment }) => {
     const { slots, name } = serVices;
     return (
         <div>
@@ -12,7 +12,9 @@ const AvailableService = ({ serVices }) => {
                         slots.length ? <span> {slots[0]}</span> : <span className='text-red-600 font-semibold'>No Slot Available</span>
                     }
                     <p> {slots.length} {slots.length > 1 ? 'Spaces' : 'Space'} Available</p>
-                <button className="btn btn-primary text-white text-bold bg-gradient-to-r from-secondary to-primary w-3/4 mx-auto" disabled={slots.length===0}>Book Appointment</button>
+                    {/* <button className="btn btn-primary text-white text-bold " ></button> */}
+
+                    <label onClick={() => setTreatment(serVices)} disabled={slots.length === 0} for="booking-modal" class="btn modal-button bg-gradient-to-r from-secondary to-primary w-3/4 text-white border-0 mx-auto">Book Appointment</label>
                 </div>
             </div>
         </div>
