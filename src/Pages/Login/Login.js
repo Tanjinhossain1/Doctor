@@ -10,20 +10,64 @@ const Login = () => {
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
     // console.log(user)
     const { register, formState: { errors }, handleSubmit } = useForm();
+    const onSubmit = data => {
+        console.log(data)
+    }
     return (
-        <div className='w-1/4 mx-auto card-body shadow-2xl rounded-lg'>
+        <div className='w-1/4 mt-16 mx-auto card-body shadow-2xl rounded-lg'>
             <h1 className='text-2xl text-center font-bold'>Login</h1>
-            <form>
-                <label htmlFor="email">Email</label>
-                <input type="email" placeholder="Type Email" name='email' className="input input-bordered input-primary w-full max-w-xs mb-2" />
-                <label htmlFor="password">Password</label>
-                <input type="password" placeholder="Type Password" name='password' className="input input-bordered input-primary w-full max-w-xs" />
-                <button>Forgot Password?</button>
-                <input className="input input-bordered input-primary w-full max-w-xs" type="submit" value="Login" />
-                <p className='text-center mt-2'> <small >New To Doctors-Portal?<Link className='text-secondary' to='/signup'>Create New Account</Link></small></p>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div class="form-control w-full max-w-xs">
+                    <label class="label">
+                        <span class="label-text">Email</span>
+                    </label>
+                    <input class="input input-bordered w-full max-w-xs"
+                        placeholder='Enter Email'
+                        type='email'
+                        {...register("email", {
+                            required:{
+                                value: true,
+                                message: 'Email is required'
+                            },
+                            pattern: { 
+                                value:/[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                                message: 'Provide a valid email'
+                            }
+                          })} />
+                    <label class="label">
+                    {errors.email?.type === 'required' &&<span class="label-text-alt text-red-500">{errors.email.message}</span>}
+                    {errors.email?.type === 'pattern' &&<span class="label-text-alt text-red-500">{errors.email.message}</span>}
+                    </label>
+                </div>
+
+                {/* Password */}
+                <div class="form-control w-full max-w-xs">
+                    <label class="label">
+                        <span class="label-text">Password</span>
+                    </label>
+                    <input class="input input-bordered w-full max-w-xs"
+                        placeholder='Enter Password'
+                        type='password'
+                        {...register("password", {
+                            required: {
+                                value: true,
+                                message: 'Password is Required'
+                            },
+                            minLength: {
+                                value: 6,
+                                message: 'Must be 6 characters'
+                            }
+                        })} />
+                    <label class="label">
+                    {errors.password?.type === 'required' &&<span class="label-text-alt text-red-500">{errors.password.message}</span>}
+                    {errors.password?.type === 'minLength' &&<span class="label-text-alt text-red-500">{errors.password.message}</span>}
+                    </label>
+                </div>
+                <p></p>
+                <input className='btn w-full max-w-xs text-white' type="submit" value="Login" />
             </form>
             <div className="divider">OR</div>
-            <button onClick={()=>signInWithGoogle()} className="btn btn-outline">Continue With Google</button>
+            <button onClick={() => signInWithGoogle()} className="btn btn-outline">Continue With Google</button>
         </div>
     );
 };
