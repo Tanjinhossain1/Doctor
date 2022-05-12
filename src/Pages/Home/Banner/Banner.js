@@ -4,6 +4,7 @@ import Buttons from '../../Shared/Buttons/Buttons';
 import bg from '../../../assets/images/bg.png';
 
 const Banner = () => {
+    
     return (
         <div style={{
             background: `url(${bg})`,
