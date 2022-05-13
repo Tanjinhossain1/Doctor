@@ -15,7 +15,7 @@ const AvailableService = ({ serVices, setTreatment }) => {
                     <p> {slots.length} {slots.length > 1 ? 'Spaces' : 'Space'} Available</p>
                     {/* <button className="btn btn-primary text-white text-bold " ></button> */}
 
-                    <label onClick={() => setTreatment(serVices)} disabled={slots.length === 0} for="booking-modal" className="btn modal-button bg-gradient-to-r from-secondary to-primary w-3/4 text-white border-0 mx-auto">Book Appointment</label>
+                    <label onClick={() => setTreatment(serVices)} disabled={slots.length === 0} htmlFor="booking-modal" className="btn modal-button bg-gradient-to-r from-secondary to-primary w-3/4 text-white border-0 mx-auto">Book Appointment</label>
                 </div>
             </div>
         </div>

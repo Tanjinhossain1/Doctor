@@ -9,6 +9,7 @@ const Navbar = () => {
     const logout = () => {
         signOut(auth);
       };
+      console.dir(user)
 
     const menuItems = <>
         <li><Link to='/home'>Home</Link></li>
@@ -16,7 +17,7 @@ const Navbar = () => {
         <li><Link to='/review'>Review</Link></li>
         <li><Link to='/contact'>Contact</Link></li>
         <li><Link to='/about'>About</Link></li>
-        {user ? <button onClick={()=>logout()}>Log Out</button>:
+        {user ? <button className='btn btn-ghost' onClick={()=>logout()}>Log Out</button>:
         <li><Link to='/login'>Login</Link></li>
         }
     </>
