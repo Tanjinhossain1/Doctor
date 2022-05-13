@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../firebase.init';
 import { useForm } from "react-hook-form";
 import Loading from '../Loading/Loading';
+import { toast } from 'react-toastify';
 
 const Login = () => {
+    const [email, setEmail] = useState('');
 
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
 
@@ -16,24 +18,29 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
 
+    const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
     const navigate = useNavigate();
     const location = useLocation();
     let from = location.state?.from?.pathname || "/";
-    useEffect(()=>{
-        if(googleUser || user){
+    useEffect(() => {
+        if (googleUser || user) {
             navigate(from)
         }
-     },[from,googleUser,navigate,user])
+    }, [from, googleUser, navigate, user])
 
     const { register, formState: { errors }, handleSubmit } = useForm();
     if (googleLoading || loading) {
-        return <Loading loading={googleLoading || loading}></Loading>
+        return <Loading loading={googleLoading || loading || sending}></Loading>
     }
-    
+
     const onSubmit = data => {
         console.log(data)
         signInWithEmailAndPassword(data.email, data.password)
+        setEmail(data.email)
     }
+
+
+    console.log(email)
 
     return (
         <div className='w-1/4 mt-16 mx-auto card-body shadow-2xl rounded-lg'>
@@ -83,15 +90,33 @@ const Login = () => {
                     <label className="label">
                         {errors.password?.type === 'required' && <span className="label-text-alt text-red-500">{errors.password.message}</span>}
                         {errors.password?.type === 'minLength' && <span className="label-text-alt text-red-500">{errors.password.message}</span>}
+                        <p className='cursor-pointer'
+                onClick={async () => {
+                    await sendPasswordResetEmail(email);
+                    toast('Reset Password send your email');
+                }}
+            >
+              Forgot Password?
+            </p>
                     </label>
                 </div>
+
                 {googleError && <p className='text-red-500'>{googleError?.message}</p>}
                 {error && <p className='text-red-500'>{error?.message}</p>}
                 <p className='mb-4'><small>New to Doctors Portal?<Link className='text-secondary font-bold' to='/signup'>Create new account</Link></small></p>
                 <input className='btn w-full max-w-xs text-white' type="submit" value="Login" />
             </form>
+            {/* <button onClick={async () => await sendPasswordResetEmail(email)}>Forgot Password?</button> */}
             <div className="divider">OR</div>
             <button onClick={() => signInWithGoogle()} className="btn btn-outline">Continue With Google</button>
+            {/* <p
+                onClick={async () => {
+                    await sendPasswordResetEmail(email);
+                    alert('Sent email');
+                }}
+            >
+              Forgot Password?
+            </p> */}
         </div>
     );
 };
