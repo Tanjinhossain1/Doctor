@@ -17,7 +17,6 @@ function App() {
   return (
     <div>
       <Navbar></Navbar>
-      <ToastContainer />
       <Routes>
         <Route path='/' element={<Home />}></Route>
         <Route path='/home' element={<Home />}></Route>
@@ -28,6 +27,7 @@ function App() {
         <Route path='/appointment' element={<RequireAuth><Appointment /></RequireAuth>}></Route>
       </Routes>
       
+      <ToastContainer />
     </div>
   );
 }
