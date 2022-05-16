@@ -3,7 +3,7 @@ import React from 'react';
 
 const AvailableService = ({ serVices, setTreatment }) => {
     const { slots, name } = serVices;
-
+console.log(slots)
     return (
         <div>
             <div className="card text-center w-96 lg:w-72 xl:w-80 2xl:w-96 bg-base-100 my-4 mx-auto shadow-xl">

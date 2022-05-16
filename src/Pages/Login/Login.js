@@ -5,6 +5,7 @@ import auth from '../firebase.init';
 import { useForm } from "react-hook-form";
 import Loading from '../Loading/Loading';
 import { toast } from 'react-toastify';
+import useToken from '../hooks/useToken';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -19,14 +20,15 @@ const Login = () => {
     ] = useSignInWithEmailAndPassword(auth);
 
     const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
+    const [token] = useToken(googleUser || user)
     const navigate = useNavigate();
     const location = useLocation();
     let from = location.state?.from?.pathname || "/";
     useEffect(() => {
-        if (googleUser || user) {
-            navigate(from)
+        if (token) {
+            navigate(from,{replace: true})
         }
-    }, [from, googleUser, navigate, user])
+    }, [from, navigate, token])
 
     const { register, formState: { errors }, handleSubmit } = useForm();
     if (googleLoading || loading) {

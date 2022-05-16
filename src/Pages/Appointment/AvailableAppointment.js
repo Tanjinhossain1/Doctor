@@ -10,19 +10,19 @@ const AvailableAppointment = ({ selected }) => {
     const [treatment, setTreatment] = useState(null);
     const formattedDate = format(selected, 'PP');
     // useEffect(() => {
-    //     fetch(`http://localhost:5000/available?date=${formattedDate}`)
+    //     fetch(`https://pure-ravine-08552.herokuapp.com/available?date=${formattedDate}`)
     //         .then(res => res.json())
     //         .then(data => setServices(data));
     // }, [formattedDate])
     // console.log(serVices)
-    const { isLoading, error, data: serVices,refetch } = useQuery(['repoData',formattedDate], () =>
-    fetch(`http://localhost:5000/available?date=${formattedDate}`).then(res =>
-      res.json()
+    const { isLoading, error, data: serVices, refetch } = useQuery(['repoData', formattedDate], () =>
+        fetch(`https://pure-ravine-08552.herokuapp.com/available?date=${formattedDate}`).then(res =>
+            res.json()
+        )
     )
-  )
-  if(isLoading){
-      return <Loading loading={isLoading}></Loading>
-  }
+    if (isLoading) {
+        return <Loading loading={isLoading}></Loading>
+    }
 
     return (
         <div>
