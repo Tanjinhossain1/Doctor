@@ -13,16 +13,16 @@ const Navbar = () => {
       console.dir(user)
 
     const menuItems = <>
-        <li><Link to='/home'>Home</Link></li>
-        <li><Link to='/appointment'>Appointment</Link></li>
-        <li><Link to='/review'>Review</Link></li>
-        <li><Link to='/contact'>Contact</Link></li>
-        <li><Link to='/about'>About</Link></li>
+        <li  className='text-xl'><Link to='/home'>Home</Link></li>
+        <li  className='text-xl'><Link to='/appointment'>Appointment</Link></li>
+        <li  className='text-xl'><Link to='/review'>Review</Link></li>
+        <li  className='text-xl'><Link to='/contact'>Contact</Link></li>
+        <li  className='text-xl'><Link to='/about'>About</Link></li>
         {user &&
-        <li><Link to='/dashboard'>Dashboard</Link></li>
+        <li  className='text-xl'><Link to='/dashboard'>Dashboard</Link></li>
         }
-        {user ? <button className='btn btn-ghost' onClick={()=>logout()}>Log Out</button>:
-        <li><Link to='/login'>Login</Link></li>
+        {user ? <button className='btn btn-ghost text-xl' onClick={()=>logout()}>Log Out</button>:
+        <li  className='text-xl'><Link to='/login'>Login</Link></li>
         }
     </>
    
