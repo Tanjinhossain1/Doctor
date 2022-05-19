@@ -1,34 +1,8 @@
-import { signOut } from 'firebase/auth';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import auth from '../firebase.init';
 
-const DoctorRow = ({ doctor, index, refetch }) => {
-    const navigate = useNavigate()
-    const { name, img, specialty, email } = doctor;
-    const handleDelete = (email) => {
-        fetch(`http://localhost:5000/deleteDoctor/${email}`, {
-            method: 'DELETE',
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('accessToken')}`
-            }
-        })
-            .then(res => {
-                if (res.status === 401 || res.status === 403) {
-                    signOut(auth)
-                    navigate('/home')
-                }
-                return res.json()
-            })
-            .then(data => {
-                console.log(data)
-                if (data.deletedCount) {
-                    toast.success(`Doctor ${name} is Delete`)
-                    refetch()
-                }
-            })
-    }
+const DoctorRow = ({ doctor, index,setDeleteDoctor }) => {
+    const { name, img, specialty } = doctor;
+   
     return (
         <tr>
             <th>{index + 1}</th>
@@ -39,7 +13,7 @@ const DoctorRow = ({ doctor, index, refetch }) => {
             </div></td>
             <td>{name}</td>
             <td>{specialty}</td>
-            <td><button onClick={() => handleDelete(email)} class="btn btn-xs btn-error text-white">DELETE</button></td>
+          <td>  <label onClick={()=>setDeleteDoctor(doctor)} for="delete-modal" class="btn btn-error btn-xs">Delete</label></td>
         </tr>
     );
 };

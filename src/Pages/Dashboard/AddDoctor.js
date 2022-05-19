@@ -10,67 +10,67 @@ import Loading from '../Loading/Loading';
 const AddDoctor = () => {
     const navigate = useNavigate()
     const { register, formState: { errors }, handleSubmit } = useForm();
-   const imageStoreKey = `dd6aa9e917ed30c4f9f495bf1f8866ee`
+    const imageStoreKey = `dd6aa9e917ed30c4f9f495bf1f8866ee`
     const { isLoading, data: services } = useQuery('repoData', () =>
-    fetch('http://localhost:5000/services').then(res =>
-      res.json()
+        fetch('https://pure-ravine-08552.herokuapp.com/services').then(res =>
+            res.json()
+        )
     )
-  )
-  if(isLoading){
-      return <Loading loading={isLoading}></Loading>
-  }
+    if (isLoading) {
+        return <Loading loading={isLoading}></Loading>
+    }
 
-  const onSubmit = async (data,event) => {
-    const image = data.image[0];
-    const formData = new FormData();
-    formData.append('image',image)
-    const url = `https://api.imgbb.com/1/upload?key=${imageStoreKey}`;
-    fetch(url,{
-        method: 'POST',
-        body: formData
-    })
-    .then(res=>res.json())
-    .then(result=>{
-        if(result.success){
-           const img= result.data.url;
-           const doctor={
-               name: data.name,
-               email: data.email,
-               specialty: data.specialty,
-               img:img
-           }
-        //    send databage
-        fetch('http://localhost:5000/addDoctor',{
+    const onSubmit = async (data, event) => {
+        const image = data.image[0];
+        const formData = new FormData();
+        formData.append('image', image)
+        const url = `https://api.imgbb.com/1/upload?key=${imageStoreKey}`;
+        fetch(url, {
             method: 'POST',
-            headers: {
-                'content-type': 'application/json',
-                authorization: `Bearer ${localStorage.getItem('accessToken')}`
-            },
-            body: JSON.stringify(doctor)
+            body: formData
         })
-        .then(res=>{
-            if (res.status === 401 || res.status === 403) {
-                signOut(auth)
-                navigate('/home')
-            }
-            return res.json()
-        })
-        .then(inserted=>{
-            if(inserted.insertedId){
-                toast.success('SuccessFully add done')
-            }else{
-                toast.error('Fail To add doctor')
-            }
-            console.log(inserted)
-            event.target.reset()
-        })
-        }
+            .then(res => res.json())
+            .then(result => {
+                if (result.success) {
+                    const img = result.data.url;
+                    const doctor = {
+                        name: data.name,
+                        email: data.email,
+                        specialty: data.specialty,
+                        img: img
+                    }
+                    //    send databage
+                    fetch('https://pure-ravine-08552.herokuapp.com/addDoctor', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json',
+                            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                        },
+                        body: JSON.stringify(doctor)
+                    })
+                        .then(res => {
+                            if (res.status === 401 || res.status === 403) {
+                                signOut(auth)
+                                navigate('/home')
+                            }
+                            return res.json()
+                        })
+                        .then(inserted => {
+                            if (inserted.insertedId) {
+                                toast.success('SuccessFully add done')
+                            } else {
+                                toast.error('Fail To add doctor')
+                            }
+                            console.log(inserted)
+                            event.target.reset()
+                        })
+                }
 
-    })
+            })
     }
 
     return (
-        <div  className='w-2/4 mt-12 mx-auto'>
+        <div className='w-2/4 mt-12 mx-auto'>
             <h1 className=' text-3xl '>This is a doctor</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-control w-full max-w-xs">
@@ -125,7 +125,7 @@ const AddDoctor = () => {
                     </label>
                     <select {...register('specialty')} class="select input-bordered w-full max-w-xs">
                         {
-                            services.map(service=><option key={service._id} value={service.name}>
+                            services.map(service => <option key={service._id} value={service.name}>
                                 {service.name}
                             </option>)
                         }

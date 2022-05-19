@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import auth from '../firebase.init';
 
 const BookingModal = ({ treatment, selected, setTreatment, refetch }) => {
-    const { slots, name, _id } = treatment;
+    const { slots, name, _id, price } = treatment;
     const [user] = useAuthState(auth);
     const date = format(selected, 'PP')
     console.log(selected)
@@ -17,6 +17,7 @@ const BookingModal = ({ treatment, selected, setTreatment, refetch }) => {
             treatment: name,
             date: date,
             slot,
+            price,
             patient: user?.email,
             patientName: user?.displayName,
             phone: event.target.phone.value
@@ -30,7 +31,7 @@ const BookingModal = ({ treatment, selected, setTreatment, refetch }) => {
             .then(data => {
                 toast(data)
                 if (data.success) {
-                    toast(`Appointment is set, ${date} at ${slot}`)
+                    toast.success(`Appointment is set, ${date} at ${slot}`)
                 }
                 else {
                     toast.error(`Already have and appointment on ${data.booking?.date} at ${data.booking?.slot}`)

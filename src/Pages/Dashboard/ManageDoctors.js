@@ -1,15 +1,17 @@
 import { signOut } from 'firebase/auth';
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import auth from '../firebase.init';
 import Loading from '../Loading/Loading';
+import DeleteConfirmModal from './DeleteConfirmModal';
 import DoctorRow from './DoctorRow';
 
 const ManageDoctors = () => {
+    const [deleteDoctor, setDeleteDoctor] = useState(null)
     const navigate = useNavigate()
     const { isLoading, data: doctors, refetch } = useQuery('doctor', () =>
-        fetch('http://localhost:5000/doctor', {
+        fetch('https://pure-ravine-08552.herokuapp.com/doctor', {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
             }
@@ -41,12 +43,13 @@ const ManageDoctors = () => {
                     </thead>
                     <tbody>
                         {
-                            doctors.map((doctor, index) => <DoctorRow refetch={refetch} index={index} doctor={doctor} key={doctor._id}></DoctorRow>)
+                            doctors.map((doctor, index) => <DoctorRow refetch={refetch} index={index} doctor={doctor} setDeleteDoctor={setDeleteDoctor} key={doctor._id}></DoctorRow>)
                         }
 
                     </tbody>
                 </table>
             </div>
+            {deleteDoctor && <DeleteConfirmModal setDeleteDoctor={setDeleteDoctor} refetch={refetch} deleteDoctor={deleteDoctor}></DeleteConfirmModal>}
         </div>
     );
 };

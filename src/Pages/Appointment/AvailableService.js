@@ -2,7 +2,7 @@ import React from 'react';
 
 
 const AvailableService = ({ serVices, setTreatment }) => {
-    const { slots, name } = serVices;
+    const { slots, name, price } = serVices;
 console.log(slots)
     return (
         <div>
@@ -14,7 +14,7 @@ console.log(slots)
                     }
                     <p> {slots.length} {slots.length > 1 ? 'Spaces' : 'Space'} Available</p>
                     {/* <button className="btn btn-primary text-white text-bold " ></button> */}
-
+                    <p><small>price: ${price}</small></p>
                     <label onClick={() => setTreatment(serVices)} disabled={slots.length === 0} htmlFor="booking-modal" className="btn modal-button bg-gradient-to-r from-secondary to-primary w-3/4 text-white border-0 mx-auto">Book Appointment</label>
                 </div>
             </div>

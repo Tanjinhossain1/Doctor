@@ -15,9 +15,9 @@ const AvailableAppointment = ({ selected }) => {
     //         .then(data => setServices(data));
     // }, [formattedDate])
     // console.log(serVices)
-    
+
     const { isLoading, error, data: serVices, refetch } = useQuery(['repoData', formattedDate], () =>
-        fetch(`http://localhost:5000/available?date=${formattedDate}`).then(res =>
+        fetch(`https://pure-ravine-08552.herokuapp.com/available?date=${formattedDate}`).then(res =>
             res.json()
         )
     )
